@@ -1,5 +1,5 @@
 # WooCommerce Payment Gateway plugin for Fire Open Banking
-(Basic) WooCommerce plugin to allow use of Fire Open Banking to recieve payments.
+WooCommerce plugin to allow use of Fire Open Banking to recieve payments.
 
 
 ## Installation
