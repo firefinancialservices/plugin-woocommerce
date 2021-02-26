@@ -5,7 +5,7 @@
  * Description: Fire Open Banking Payment gateway for woocommerce. This plugin supports woocommerce version 3.0.0 or greater.
  * Author: Fire Financial Services
  * Author URI: https://www.fire.com
- * Version: 0.0.1
+ * Version: 0.0.2
  * Text Domain: woocommerce-gateway-fireob
  */
  
@@ -433,7 +433,7 @@ function wc_fireob_init() {
 				
 				
 				$oid = $order->get_id();
-				$returnUrl = $this->getDomain().'/wc-api/fob/?oid='.$oid;
+				$returnUrl = $this->getDomain().'?wc-api=fob&oid='.$oid;
 				
 				if( count($order->get_items()) == 1 )
 				{
