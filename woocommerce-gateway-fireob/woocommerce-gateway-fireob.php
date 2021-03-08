@@ -6,7 +6,7 @@
  * Description: Fire Open Banking Payment gateway for woocommerce. This plugin supports woocommerce version 3.0.0 or greater.
  * Author: Fire Financial Services
  * Author URI: https://www.fire.com
- * Version: 0.0.2
+ * Version: 0.0.3
  * Text Domain: woocommerce-gateway-fireob
  */
 
@@ -244,7 +244,7 @@ function wc_fireob_init()
                 $fireob_ps = $this->get_payment_status($_GET['paymentUuid'], $accessToken);
 
                 // this should be set in all successful cases
-                $payment_uuid = $_GET['paymentUuid']);
+                $payment_uuid = $_GET['paymentUuid'];
                 if (!isset($payment_uuid))
                     $payment_uuid = "";
 
