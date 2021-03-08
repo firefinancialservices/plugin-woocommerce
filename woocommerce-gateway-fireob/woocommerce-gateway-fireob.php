@@ -243,10 +243,26 @@ function wc_fireob_init()
 
                 $fireob_ps = $this->get_payment_status($_GET['paymentUuid'], $accessToken);
 
+                // this should be set in all successful cases
+                $payment_uuid = $_GET['paymentUuid']);
+                if (!isset($payment_uuid))
+                    $payment_uuid = "";
+
+                update_post_meta($order->get_id(), '_fireob_paymentUuid',  $payment_uuid);
+                
+                // for all statuses, add order note 
+                $order->add_order_note(
+                    'Fire OB Online Banking payment is ' . $fireob_ps . '!<br/>Payment Uuid: ' . $payment_uuid
+                );
+
+                update_post_meta($order->get_id(), '_fireob_payment_code',  @$_SESSION['payment_code']);
+                
+                unset($_SESSION['payment_code']);
+                unset($_SESSION['order_id']); 
                 unset($_SESSION["accessToken"]);
 
-                if ($fireob_ps == 'AUTHORISED') {
-
+                // 'success' statuses 
+                if ($fireob_ps == 'AUTHORISED' || $fireob_ps == 'PAID') {
                     $current_version = get_option('woocommerce_version', null);
                     if (version_compare($current_version, '3.0.0', '<')) {
                         $order->reduce_order_stock();
@@ -256,29 +272,29 @@ function wc_fireob_init()
                     //Remove cart
                     WC()->cart->empty_cart();
 
-                    $order->add_order_note('Fire OB Online Banking payment is AUTHORISED!<br/>Payment Uuid: ' . $_GET['paymentUuid']);
-                    $order->update_status($this->order_status);
-                    update_post_meta($order->get_id(), '_fireob_paymentUuid',  $_GET['paymentUuid']);
-                    update_post_meta($order->get_id(), '_fireob_payment_code',  @$_SESSION["payment_code"]);
-
-
-                    unset($_SESSION["order_id"]); //Unset Session variable
-                    unset($_SESSION["payment_code"]);
+                    // ensure we redirect to order confirmation page
                     $redirect_url = $order->get_checkout_order_received_url();
+                    // this should be okay to run now while backend continues processing
                     $this->web_redirect($redirect_url);
+                }
+
+                // specific handling for specific statuses
+                if ($fireob_ps == 'AUTHORISED') {
+                    // set status to settings-defined status
+                    $order->update_status($this->order_status);
+                    exit;
+                } else if ($fireob_ps == 'PAID') {
+                    // set status to processing
+                    $order->update_status('processing');
                     exit;
                 } else if ($fireob_ps == 'NOT_AUTHORISED') {
-
-                    //Remove cart
-                    WC()->cart->empty_cart();
-
-                    unset($_SESSION['order_id']); //Unset Session variable	
                     $order->update_status('failed');
-                    $order->add_order_note('Fire OB Online Banking payment is NOT_AUTHORISED!<br/>Payment Uuid: ' . $_GET['paymentUuid']);
-                    update_post_meta($order->get_id(), '_fireob_paymentUuid',  $_GET['paymentUuid']);
-                    update_post_meta($order->get_id(), '_fireob_payment_code',  @$_SESSION['payment_code']);
-                    unset($_SESSION['payment_code']);
-
+                    $redirect = $order->get_cancel_order_url();
+                    wp_redirect($redirect);
+                    return;
+                } else {
+                    // same steps as NOT_AUTHORISED for now
+                    $order->update_status('failed');
                     $redirect = $order->get_cancel_order_url();
                     wp_redirect($redirect);
                     return;
