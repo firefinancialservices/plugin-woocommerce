@@ -72,7 +72,7 @@ function wc_fireob_init()
             $this->icon               = apply_filters('woocommerce_offline_icon', '');
             $this->has_fields         = false;
             $this->method_title       = __('Fire Open Banking Payment Gateway', 'woocommerce-gateway-fireob');
-            $this->method_description = __('Allows online payments using Bank Account. Very handy if you use your Payment By Fire Open Banking gateway for another payment method, and can help with testing. Orders are marked as "completed" when received.', 'woocommerce-gateway-fireob');
+            $this->method_description = __('This plugin allows you to supplement your existing payment acceptance options with Open Banking payments. Customers can pay you directly from their bank account, without the need to remember payment credentials. Orders are marked as "completed" when received.', 'woocommerce-gateway-fireob');
 
             // Load the settings.
             $this->init_form_fields();
@@ -146,7 +146,7 @@ function wc_fireob_init()
                         'title'       => __('Title', 'woocommerce-gateway-fireob'),
                         'type'        => 'text',
                         'description' => __('This controls the title for the payment method the customer sees during checkout.', 'woocommerce-gateway-fireob'),
-                        'default'     => __('Payment By Fire Open Banking Gateway', 'woocommerce-gateway-fireob'),
+                        'default'     => __('Powered by Fire Open Payments', 'woocommerce-gateway-fireob'),
                         'desc_tip'    => true,
                     ),
 
