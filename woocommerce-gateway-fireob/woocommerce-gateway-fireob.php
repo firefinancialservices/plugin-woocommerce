@@ -146,7 +146,7 @@ function wc_fireob_init()
                         'title'       => __('Title', 'woocommerce-gateway-fireob'),
                         'type'        => 'text',
                         'description' => __('This controls the title for the payment method the customer sees during checkout.', 'woocommerce-gateway-fireob'),
-                        'default'     => __('Powered by Fire Open Payments', 'woocommerce-gateway-fireob'),
+                        'default'     => __('Pay directly from your bank account via Open Banking', 'woocommerce-gateway-fireob'),
                         'desc_tip'    => true,
                     ),
 
@@ -154,7 +154,7 @@ function wc_fireob_init()
                         'title'       => __('Description', 'woocommerce-gateway-fireob'),
                         'type'        => 'text',
                         'description' => __('This controls the description for the payment method the customer sees during checkout.', 'woocommerce-gateway-fireob'),
-                        'default'     => __('Pay directly from your bank account via Open Banking', 'woocommerce-gateway-fireob'),
+                        'default'     => __('Powered by Fire Open Payments', 'woocommerce-gateway-fireob'),
                         'desc_tip'    => true,
                     ),
 
