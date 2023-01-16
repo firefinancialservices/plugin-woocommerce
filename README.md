@@ -9,7 +9,7 @@ WooCommerce plugin to allow use of Fire Open Banking to recieve payments.
 4. Check crontrol to ensure two hourly entries are added - /wp-cron.php?fireob_set_status=1 and /wp-cron.php?fireob_set_status_code=1
 
 ## Creating API Credentials
-Follow the instructions in the [FAQ](https://www.fire.com/business-account-faqs/#toggle-id-35) to configure a key with the following permissions:
+Follow the instructions in the [FAQ](https://www.fire.com/business-account-faqs/#toggle-id-39) to configure a key with the following permissions:
 
 - Get list of all Payment Requests sent and their details (PERM_BUSINESS_GET_PAYMENT_REQUESTS)
 - Get list of all Payment Attempts related to a Payment Request (PERM_BUSINESS_GET_PAYMENT_REQUEST_PAYMENTS)
